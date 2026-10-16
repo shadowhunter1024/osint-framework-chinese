@@ -349,7 +349,9 @@ function doSearch(query) {
   searchMatches = allSearchNodes.filter(function(d) {
     var name = (d.data.name || "").toLowerCase();
     var desc = (d.data.description || "").toLowerCase();
-    return name.indexOf(lower) !== -1 || desc.indexOf(lower) !== -1;
+    // i18n: 说明被翻译后，仍可用英文原文搜索
+    var descEn = (window.OsintI18n ? OsintI18n.searchText(d.data) : "").toLowerCase();
+    return name.indexOf(lower) !== -1 || desc.indexOf(lower) !== -1 || descEn.indexOf(lower) !== -1;
   }).slice(0, 50);
 
   results.classList.add("visible");
